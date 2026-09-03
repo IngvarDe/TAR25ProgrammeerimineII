@@ -14,5 +14,7 @@ namespace ShopTARpe25.Data
         {
         }
         //teha DbSet, et saaks andmebaasi kasutada
+        //teha Core projekti alla Domain nimega kaust ja sinna class
+        //nimega Spaceship
     }
 }
