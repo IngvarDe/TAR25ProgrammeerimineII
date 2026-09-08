@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShopTARpe25.Core.Domain;
 using ShopTARpe25.Core.Dto;
+using ShopTARpe25.Core.ServiceInterface;
 using ShopTARpe25.Data;
 
 
@@ -8,7 +9,7 @@ namespace ShopTARpe25.ApplicationServices.Services
 {
 
 
-    public class SpaceshipServices
+    public class SpaceshipServices : ISpaceshipServices
     {
         private readonly ShopTARpe25Context _context;
 
