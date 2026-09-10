@@ -6,4 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ShopTARpe25.ApplicationServices\ShopTARpe25.ApplicationServices.csproj" />
+    <ProjectReference Include="..\ShopTARpe25.Core\ShopTARpe25.Core.csproj" />
+  </ItemGroup>
+
 </Project>
