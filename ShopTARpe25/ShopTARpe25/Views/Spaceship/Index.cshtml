@@ -1,3 +1,38 @@
-﻿<div>
+﻿@model IEnumerable<ShopTARpe25.Models.Spaceship.SpaceshipIndexViewModel>
+
+<div>
     <a asp-action="create" asp-controller="Spaceship" type="submit" class="btn btn-primary">Create</a>
 </div>
+
+<div class="h1">
+    Spaceship
+</div>
+<form method="get">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Nr</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Built Date</th>
+                <th scope="col">Crew</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var spaceship in Model)
+                {
+                    <tr>
+                        <td>Rea number</td>
+                        <td>@spaceship.Name</td>
+                        <td>@spaceship.Classification</td>
+                        <td>@spaceship.BuiltDate</td>
+                        <td>@spaceship.Crew</td>
+                        <td>
+                            Siia tulevad nupud
+                        </td>
+                    </tr>
+                }
+        </tbody>
+    </table>
+</form>
