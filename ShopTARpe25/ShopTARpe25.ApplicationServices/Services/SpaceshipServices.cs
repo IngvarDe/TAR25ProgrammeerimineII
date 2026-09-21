@@ -20,6 +20,7 @@ namespace ShopTARpe25.ApplicationServices.Services
         {
             _context = context;
         }
+
         public async Task<Spaceship> Create(SpaceshipDto dto)
         {
             Spaceship domain = new();
@@ -30,8 +31,8 @@ namespace ShopTARpe25.ApplicationServices.Services
             domain.BuiltDate = dto.BuiltDate;
             domain.Crew = dto.Crew;
             domain.EnginePower = dto.EnginePower;
-            domain.CreatedAt = dto.CreatedAt;
-            domain.ModifiedAt = dto.ModifiedAt;
+            domain.CreatedAt = DateTime.Now;
+            domain.ModifiedAt = DateTime.Now;
 
             //siia tuleb kood, mis salvestab domain
             //objekti andmebaasi
@@ -53,6 +54,25 @@ namespace ShopTARpe25.ApplicationServices.Services
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             return result;
+        }
+
+        public async Task<Spaceship> Update(SpaceshipDto dto)
+        {
+            Spaceship spaceship = new();
+
+            spaceship.Id = dto.Id;
+            spaceship.Name = dto.Name;
+            spaceship.Classification = dto.Classification;
+            spaceship.BuiltDate = dto.BuiltDate;
+            spaceship.Crew = dto.Crew;
+            spaceship.EnginePower = dto.EnginePower;
+            spaceship.CreatedAt = dto.CreatedAt;
+            spaceship.ModifiedAt = DateTime.Now;
+
+            _context.Spaceships.Update(spaceship);
+            await _context.SaveChangesAsync();
+
+            return spaceship;
         }
     }
 }

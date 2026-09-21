@@ -1,0 +1,52 @@
+﻿@model ShopTARpe25.Models.Spaceship.SpaceshipUpdateViewModel
+
+<h1>Update</h1>
+
+<div>
+    <form method="post" enctype="multipart/form-data">
+        <input asp-for="Id" type="hidden"/>
+        <input asp-for="CreatedAt" type="hidden"/>
+        <input asp-for="ModifiedAt" type="hidden"/>
+
+        <div class="form-group row">
+            <label asp-for="Name" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="Name" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="Classification" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="Classification" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="BuiltDate" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="BuiltDate" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="Crew" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="Crew" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="EnginePower" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="EnginePower" class="form-control" />
+            </div>
+        </div>
+
+        <input asp-action="Update" asp-controller="spaceship" type="submit" class="btn btn-success" value="Update" />
+
+    </form>
+</div>
+
+
+
