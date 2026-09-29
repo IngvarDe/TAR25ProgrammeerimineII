@@ -1,0 +1,64 @@
+﻿@model IEnumerable<ShopTARpe25.Models.Kindergarten.KindergartenIndexViewModel>
+
+@{
+    int rowNumber = 1;
+}
+
+<div>
+    <a asp-action="Create" asp-controller="Kindergarten" type="submit" class="btn btn-primary">Create</a>
+</div>
+
+<div class="h1">
+    Kindergarten
+</div>
+
+<form method="get">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Nr</th>
+                <th scope="col">Group Name</th>
+                <th scope="col">Children Count</th>
+                <th scope="col">Kindergarten Name</th>
+                <th scope="col">Teacher Name</th>
+                <th scope="col">Created At</th>
+                <th scope="col">Updated At</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var kindergarten in Model)
+            {
+                <tr>
+                    <td>@rowNumber</td>
+                    <td>@kindergarten.GroupName</td>
+                    <td>@kindergarten.ChildrenCount</td>
+                    <td>@kindergarten.KindergartenName</td>
+                    <td>@kindergarten.TeacherName</td>
+                    <td>@kindergarten.CreatedAt</td>
+                    <td>@kindergarten.UpdatedAt</td>
+
+                    <td>
+                        <a asp-action="Details"
+                           asp-controller="Kindergarten"
+                           asp-route-id="@kindergarten.Id"
+                           type="submit">Details</a>
+
+                        <a asp-action="Update"
+                           asp-controller="Kindergarten"
+                           asp-route-id="@kindergarten.Id"
+                           type="submit">Update</a>
+
+                        <a asp-action="Delete"
+                           asp-controller="Kindergarten"
+                           asp-route-id="@kindergarten.Id"
+                           type="submit">Delete</a>
+                    </td>
+                </tr>
+
+                rowNumber++;
+            }
+        </tbody>
+    </table>
+</form>

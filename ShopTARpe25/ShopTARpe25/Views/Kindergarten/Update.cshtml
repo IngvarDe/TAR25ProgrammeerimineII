@@ -1,0 +1,42 @@
+﻿@model ShopTARpe25.Models.Kindergarten.KindergartenUpdateViewModel
+
+<h1>Update</h1>
+
+<div>
+    <form method="post" enctype="multipart/form-data">
+        <input asp-for="Id" type="hidden" />
+        <input asp-for="CreatedAt" type="hidden" />
+        <input asp-for="UpdatedAt" type="hidden" />
+
+        <div class="form-group row">
+            <label asp-for="GroupName" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="GroupName" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="ChildrenCount" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="ChildrenCount" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="KindergartenName" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="KindergartenName" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="TeacherName" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="TeacherName" class="form-control" />
+            </div>
+        </div>
+
+        <input asp-action="Update" asp-controller="kindergarten" type="submit" class="btn btn-success" value="Update" />
+
+    </form>
+</div>
