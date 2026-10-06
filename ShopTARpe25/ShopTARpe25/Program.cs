@@ -14,7 +14,9 @@ namespace ShopTARpe25
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            //See on dependency injection, mis võimaldab meil kasutada teenuseid controllerites
             builder.Services.AddScoped<ISpaceshipServices, SpaceshipServices>();
+            builder.Services.AddScoped<IFileServices, FileServices>();
 
             //selleks, et tuleb installida Microsoft.EntityFrameworkCore.SqlServer
             //ja Microsoft.EntityFrameworkCore.Tools NuGet paketid
