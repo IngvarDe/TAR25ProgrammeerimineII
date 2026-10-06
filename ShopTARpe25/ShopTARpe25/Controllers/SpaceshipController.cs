@@ -105,7 +105,7 @@ namespace ShopTARpe25.Controllers
                 .Where(x => x.SpaceshipId == id)
                 .Select(y => new ImageViewModel
                 {
-                    FilePath = "/multipleFileUpload/" + y.ExistingFilePath,
+                    FilePath = /*"~/multipleFileUpload/" +*/ y.ExistingFilePath,
                     ImageId = y.Id,
                     SpaceshipId = y.SpaceshipId
                 }).ToArrayAsync();
