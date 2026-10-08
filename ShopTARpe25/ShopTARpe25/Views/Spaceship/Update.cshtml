@@ -46,6 +46,8 @@
         @foreach (var file in Model.Images)
         {
             <partial name="_Images" model="file" />
+            <input asp-action="removeImage" asp-controller="spaceship" asp-route-imageId="@file.ImageId"
+                type="submit" class="btn btn-danger" value="Remove Image" />
         }
 
         <input asp-action="Update" asp-controller="spaceship" type="submit" class="btn btn-success" value="Update" />
