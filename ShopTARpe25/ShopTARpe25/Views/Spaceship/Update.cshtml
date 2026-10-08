@@ -43,7 +43,13 @@
             </div>
         </div>
 
+        @foreach (var file in Model.Images)
+        {
+            <partial name="_Images" model="file" />
+        }
+
         <input asp-action="Update" asp-controller="spaceship" type="submit" class="btn btn-success" value="Update" />
+        <a asp-action="Index" asp-controller="spaceship" class="btn btn-info">Back to List</a>
 
     </form>
 </div>
