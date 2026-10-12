@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ShopTARpe25.Core.Domain
+﻿namespace ShopTARpe25.Core.Domain
 {
     public class Spaceship
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Classification { get; set; } = string.Empty;
         public DateTime? BuiltDate { get; set; }
