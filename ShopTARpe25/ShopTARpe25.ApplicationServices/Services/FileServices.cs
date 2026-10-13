@@ -60,13 +60,13 @@ namespace ShopTARpe25.ApplicationServices.Services
                             SpaceshipId = domain.Id
                         };
 
-                        _context.FileToApis.AddAsync(path);
+                        _context.FileToApi.AddAsync(path);
                     }
                 }
             }
         }
 
-        public async Task<FileToApi> RemoveImageFromApi(FileToApiDto dto)
+        public async Task<FileToApi> RemoveImageFromApi(FilesToApiDto dto)
         {
             //kui on vaja kustutada fail, siis tuleb see üles leida
             var imageId = await _context.FileToApis
@@ -88,7 +88,7 @@ namespace ShopTARpe25.ApplicationServices.Services
             return imageId;
         }
 
-        public async Task<List<FileToApi>> RemoveImagesFromApi(FileToApiDto[] dto)
+        public async Task<List<FileToApi>> RemoveImagesFromApi(FilesToApiDto[] dto)
         {
             foreach (var image in dto)
             {

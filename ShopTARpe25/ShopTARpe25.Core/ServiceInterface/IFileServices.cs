@@ -4,7 +4,8 @@ using System.Text;
 
 namespace ShopTARpe25.Core.ServiceInterface
 {
-    internal class IFileServices
+    public class IFileServices
     {
+
     }
 }
