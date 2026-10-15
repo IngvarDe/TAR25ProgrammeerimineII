@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using ShopTARpe25.Core.Domain;
+﻿
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ShopTARpe25.Core.Dto;
 using ShopTARpe25.Core.ServiceInterface;
 using ShopTARpe25.Data;
@@ -12,11 +13,9 @@ namespace ShopTARpe25.Controllers
         private readonly IKindergartenServices _kindergartenService;
         private readonly ShopTARpe25Context _context;
 
-        public KindergartenController
-            (
+        public KindergartenController(
             IKindergartenServices kindergartenService,
-            ShopTARpe25Context context
-            )
+            ShopTARpe25Context context)
         {
             _kindergartenService = kindergartenService;
             _context = context;
@@ -53,10 +52,11 @@ namespace ShopTARpe25.Controllers
                 GroupName = vm.GroupName,
                 ChildrenCount = vm.ChildrenCount,
                 KindergartenName = vm.KindergartenName,
-                TeacherName = vm.TeacherName
+                TeacherName = vm.TeacherName,
+                Files = vm.Files
             };
 
-            var result = await _kindergartenService.Create(dto);
+            await _kindergartenService.Create(dto);
 
             return RedirectToAction(nameof(Index));
         }
@@ -64,22 +64,34 @@ namespace ShopTARpe25.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(Guid id)
         {
-            var kindergarten = await _kindergartenService.DetailsAsync(id);
+            var kindergarten = await _context.Kindergartens
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             if (kindergarten == null)
             {
                 return NotFound();
             }
 
-            var vm = new KindergartenDetailsViewModel();
+            var vm = new KindergartenDetailsViewModel
+            {
+                Id = kindergarten.Id,
+                GroupName = kindergarten.GroupName,
+                ChildrenCount = kindergarten.ChildrenCount,
+                KindergartenName = kindergarten.KindergartenName,
+                TeacherName = kindergarten.TeacherName,
+                CreatedAt = kindergarten.CreatedAt,
+                UpdatedAt = kindergarten.UpdatedAt
+            };
 
-            vm.Id = kindergarten.Id;
-            vm.GroupName = kindergarten.GroupName;
-            vm.ChildrenCount = kindergarten.ChildrenCount;
-            vm.KindergartenName = kindergarten.KindergartenName;
-            vm.TeacherName = kindergarten.TeacherName;
-            vm.CreatedAt = kindergarten.CreatedAt;
-            vm.UpdatedAt = kindergarten.UpdatedAt;
+            vm.FileToApiDtos = await _context.FileToApis
+                .Where(x => x.KindergartenId == id)
+                .Select(x => new FilesToApiDto
+                {
+                    Id = x.Id,
+                    ExistingFilePath = x.ExistingFilePath,
+                    KindergartenId = x.KindergartenId
+                })
+                .ToListAsync();
 
             return View(vm);
         }
@@ -94,15 +106,16 @@ namespace ShopTARpe25.Controllers
                 return NotFound();
             }
 
-            var vm = new KindergartenUpdateViewModel();
-
-            vm.Id = kindergarten.Id;
-            vm.GroupName = kindergarten.GroupName;
-            vm.ChildrenCount = kindergarten.ChildrenCount;
-            vm.KindergartenName = kindergarten.KindergartenName;
-            vm.TeacherName = kindergarten.TeacherName;
-            vm.CreatedAt = kindergarten.CreatedAt;
-            vm.UpdatedAt = kindergarten.UpdatedAt;
+            var vm = new KindergartenUpdateViewModel
+            {
+                Id = kindergarten.Id,
+                GroupName = kindergarten.GroupName,
+                ChildrenCount = kindergarten.ChildrenCount,
+                KindergartenName = kindergarten.KindergartenName,
+                TeacherName = kindergarten.TeacherName,
+                CreatedAt = kindergarten.CreatedAt,
+                UpdatedAt = kindergarten.UpdatedAt
+            };
 
             return View(vm);
         }
@@ -110,7 +123,7 @@ namespace ShopTARpe25.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(KindergartenUpdateViewModel vm)
         {
-            var dto = new KindergartenDto()
+            var dto = new KindergartenDto
             {
                 Id = vm.Id,
                 GroupName = vm.GroupName,
@@ -118,14 +131,15 @@ namespace ShopTARpe25.Controllers
                 KindergartenName = vm.KindergartenName,
                 TeacherName = vm.TeacherName,
                 CreatedAt = vm.CreatedAt,
-                UpdatedAt = vm.UpdatedAt
+                UpdatedAt = vm.UpdatedAt,
+                Files = vm.Files
             };
 
             var result = await _kindergartenService.Update(dto);
 
             if (result == null)
             {
-                return RedirectToAction(nameof(Index));
+                return NotFound();
             }
 
             return RedirectToAction(nameof(Index));
@@ -141,15 +155,16 @@ namespace ShopTARpe25.Controllers
                 return NotFound();
             }
 
-            var vm = new KindergartenDeleteViewModel();
-
-            vm.Id = kindergarten.Id;
-            vm.GroupName = kindergarten.GroupName;
-            vm.ChildrenCount = kindergarten.ChildrenCount;
-            vm.KindergartenName = kindergarten.KindergartenName;
-            vm.TeacherName = kindergarten.TeacherName;
-            vm.CreatedAt = kindergarten.CreatedAt;
-            vm.UpdatedAt = kindergarten.UpdatedAt;
+            var vm = new KindergartenDeleteViewModel
+            {
+                Id = kindergarten.Id,
+                GroupName = kindergarten.GroupName,
+                ChildrenCount = kindergarten.ChildrenCount,
+                KindergartenName = kindergarten.KindergartenName,
+                TeacherName = kindergarten.TeacherName,
+                CreatedAt = kindergarten.CreatedAt,
+                UpdatedAt = kindergarten.UpdatedAt
+            };
 
             return View(vm);
         }
@@ -161,7 +176,7 @@ namespace ShopTARpe25.Controllers
 
             if (result == null)
             {
-                return RedirectToAction(nameof(Index));
+                return NotFound();
             }
 
             return RedirectToAction(nameof(Index));

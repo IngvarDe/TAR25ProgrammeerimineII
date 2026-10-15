@@ -7,53 +7,40 @@
     <hr />
 
     <dl class="row">
-        <div class="form-group row">
-            <label asp-for="Id" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.Id)
-        </div>
+        <dt class="col-sm-2">Id</dt>
+        <dd class="col-sm-10">@Model.Id</dd>
+
+        <dt class="col-sm-2">Group Name</dt>
+        <dd class="col-sm-10">@Model.GroupName</dd>
+
+        <dt class="col-sm-2">Children Count</dt>
+        <dd class="col-sm-10">@Model.ChildrenCount</dd>
+
+        <dt class="col-sm-2">Kindergarten Name</dt>
+        <dd class="col-sm-10">@Model.KindergartenName</dd>
+
+        <dt class="col-sm-2">Teacher Name</dt>
+        <dd class="col-sm-10">@Model.TeacherName</dd>
+
+        <dt class="col-sm-2">Created At</dt>
+        <dd class="col-sm-10">@Model.CreatedAt</dd>
+
+        <dt class="col-sm-2">Updated At</dt>
+        <dd class="col-sm-10">@Model.UpdatedAt</dd>
     </dl>
 
-    <dl class="row">
-        <div class="form-group row">
-            <label asp-for="GroupName" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.GroupName)
-        </div>
-    </dl>
+    <h4>Images</h4>
 
-    <dl class="row">
-        <div class="form-group row">
-            <label asp-for="ChildrenCount" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.ChildrenCount)
+    @foreach (var image in Model.FileToApiDtos)
+    {
+        <div>
+            <img src="~/multipleFileUpload/@image.ExistingFilePath"
+                 alt="Kindergarten image"
+                 style="max-width: 300px; margin: 10px;" />
         </div>
-    </dl>
+    }
 
-    <dl class="row">
-        <div class="form-group row">
-            <label asp-for="KindergartenName" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.KindergartenName)
-        </div>
-    </dl>
-
-    <dl class="row">
-        <div class="form-group row">
-            <label asp-for="TeacherName" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.TeacherName)
-        </div>
-    </dl>
-
-    <dl class="row">
-        <div class="form-group row">
-            <label asp-for="CreatedAt" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.CreatedAt)
-        </div>
-    </dl>
-
-    <dl class="row">
-        <div class="form-group row">
-            <label asp-for="UpdatedAt" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.UpdatedAt)
-        </div>
-    </dl>
-
-    <a asp-action="Index" asp-controller="kindergarten" class="btn btn-danger">Back to List</a>
+    <a asp-action="Index" asp-controller="Kindergarten" class="btn btn-danger">
+        Back to List
+    </a>
 </div>

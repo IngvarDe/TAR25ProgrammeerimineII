@@ -1,11 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using ShopTARpe25.Core.Domain;
+using ShopTARpe25.Core.Dto;
 
 namespace ShopTARpe25.Core.ServiceInterface
 {
-    public class IFileServices
+    public interface IFileServices
     {
+        void FilesToApi(SpaceshipDto dto, Spaceship domain);
+        void FilesToApi(KindergartenDto dto, Kindergarten domain);
 
+        Task<FileToApi> RemoveImageFromApi(FilesToApiDto dto);
+
+        Task<List<FileToApi>> RemoveImagesFromApi(FilesToApiDto[] dto);
     }
 }
+

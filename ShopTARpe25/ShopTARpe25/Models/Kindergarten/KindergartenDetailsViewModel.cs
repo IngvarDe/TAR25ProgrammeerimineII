@@ -1,4 +1,7 @@
-﻿using System;
+﻿
+using System;
+using System.Collections.Generic;
+using ShopTARpe25.Core.Dto;
 
 namespace ShopTARpe25.Models.Kindergarten
 {
@@ -11,5 +14,7 @@ namespace ShopTARpe25.Models.Kindergarten
         public string TeacherName { get; set; } = string.Empty;
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
+
+        public List<FilesToApiDto> FileToApiDtos { get; set; } = new();
     }
 }

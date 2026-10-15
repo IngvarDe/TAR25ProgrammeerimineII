@@ -1,6 +1,6 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ShopTARpe25.Core.Domain
 {
@@ -19,5 +19,8 @@ namespace ShopTARpe25.Core.Domain
         public DateTime? CreatedAt { get; set; }
 
         public DateTime? UpdatedAt { get; set; }
+
+        public IEnumerable<FileToApi> FileToApiDtos { get; set; }
+            = new List<FileToApi>();
     }
 }

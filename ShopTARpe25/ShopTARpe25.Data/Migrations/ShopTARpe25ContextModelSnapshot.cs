@@ -22,6 +22,30 @@ namespace ShopTARpe25.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ShopTARpe25.Core.Domain.FileToApi", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ExistingFilePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("KindergartenId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("SpaceshipId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("KindergartenId");
+
+                    b.HasIndex("SpaceshipId");
+
+                    b.ToTable("FileToApis");
+                });
+
             modelBuilder.Entity("ShopTARpe25.Core.Domain.Kindergarten", b =>
                 {
                     b.Property<Guid>("Id")
@@ -86,6 +110,31 @@ namespace ShopTARpe25.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Spaceships");
+                });
+
+            modelBuilder.Entity("ShopTARpe25.Core.Domain.FileToApi", b =>
+                {
+                    b.HasOne("ShopTARpe25.Core.Domain.Kindergarten", "Kindergarten")
+                        .WithMany("FileToApiDtos")
+                        .HasForeignKey("KindergartenId");
+
+                    b.HasOne("ShopTARpe25.Core.Domain.Spaceship", "Spaceship")
+                        .WithMany("FileToApiDtos")
+                        .HasForeignKey("SpaceshipId");
+
+                    b.Navigation("Kindergarten");
+
+                    b.Navigation("Spaceship");
+                });
+
+            modelBuilder.Entity("ShopTARpe25.Core.Domain.Kindergarten", b =>
+                {
+                    b.Navigation("FileToApiDtos");
+                });
+
+            modelBuilder.Entity("ShopTARpe25.Core.Domain.Spaceship", b =>
+                {
+                    b.Navigation("FileToApiDtos");
                 });
 #pragma warning restore 612, 618
         }

@@ -4,6 +4,7 @@
 
 <div>
     <form method="post" enctype="multipart/form-data">
+
         <input asp-for="Id" type="hidden" />
         <input asp-for="CreatedAt" type="hidden" />
         <input asp-for="UpdatedAt" type="hidden" />
@@ -36,7 +37,15 @@
             </div>
         </div>
 
-        <input asp-action="Update" asp-controller="kindergarten" type="submit" class="btn btn-success" value="Update" />
+        <div class="form-group row">
+            <label asp-for="Files" class="col-sm-2 col-form-label">Images</label>
+            <div class="col-sm-10">
+                <input asp-for="Files" type="file" multiple class="form-control" accept="image/*" />
+            </div>
+        </div>
+
+        <input asp-action="Update" asp-controller="Kindergarten"
+               type="submit" class="btn btn-success" value="Update" />
 
     </form>
 </div>

@@ -1,4 +1,8 @@
-﻿namespace ShopTARpe25.Models.Kindergarten
+﻿
+using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
+
+namespace ShopTARpe25.Models.Kindergarten
 {
     public class KindergartenCreateViewModel
     {
@@ -6,5 +10,7 @@
         public int? ChildrenCount { get; set; }
         public string KindergartenName { get; set; } = string.Empty;
         public string TeacherName { get; set; } = string.Empty;
+
+        public List<IFormFile> Files { get; set; } = new();
     }
 }
