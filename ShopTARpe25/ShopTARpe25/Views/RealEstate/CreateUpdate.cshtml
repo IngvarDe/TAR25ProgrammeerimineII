@@ -38,6 +38,19 @@ else
             <input asp-for="BuildingType" class="form-control" />
         </div>
 
+        <div class="form-group">
+            <label asp-for="Files" class="control-label"></label>
+            <input class="form-control" asp-for="Files" multiple type="file" />
+        </div>
+
+        <div>
+            @foreach (var images in Model.Image)
+                {
+                    <partial name="_Images" model="images"/>
+                }
+        </div>
+
+
         @if (Model.Id.HasValue)
         {
             <input asp-action="update" asp-controller="realEstate" type="submit" class="btn btn-success" value="Update" />

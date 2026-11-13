@@ -3,6 +3,8 @@ using ShopTARpe25.Core.Dto;
 using ShopTARpe25.Core.ServiceInterface;
 using ShopTARpe25.Data;
 using ShopTARpe25.Models.RealEstate;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace ShopTARpe25.Controllers
 {
@@ -179,6 +181,8 @@ namespace ShopTARpe25.Controllers
                 return View(nameof(Index));
             }
 
+            RealEstateImageViewModel[] images = await FileFromDatabase(id);
+
             var vm = new RealEstateDetailsViewModel
             {
                 Id = result.Id,
@@ -191,6 +195,22 @@ namespace ShopTARpe25.Controllers
             };
 
             return View(vm);
+        }
+
+        private async Task<RealEstateImageViewModel[]> FileFromDatabase(Guid id)
+        {
+            var result = await _context.FileToDatabases
+                .Where(x => x.RealEstateId == id)
+                .Select(y => new RealEstateImageViewModel
+                {
+                    ImageId = y.Id,
+                    RealEstateId = y.Id,
+                    ImageData = y.ImageData,
+                    ImageTitle = y.ImageTitle,
+                    Image = string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(y.ImageData))
+                }).ToArrayAsync();
+
+            return result;
         }
     }
 }
