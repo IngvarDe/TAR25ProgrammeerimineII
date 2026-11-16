@@ -183,17 +183,18 @@ namespace ShopTARpe25.Controllers
 
             RealEstateImageViewModel[] images = await FileFromDatabase(id);
 
-            var vm = new RealEstateDetailsViewModel
-            {
-                Id = result.Id,
-                Area = result.Area,
-                Address = result.Address,
-                RoomNumber = result.RoomNumber,
-                BuildingType = result.BuildingType,
-                CreatedAt = result.CreatedAt,
-                ModifiedAt = result.ModifiedAt,
-            };
+            //siin toimub info edasi liikumine dto-st viewModelini
+            var vm = new RealEstateDetailsViewModel();
 
+            vm.Id = result.Id;
+            vm.Area = result.Area;
+            vm.Address = result.Address;
+            vm.RoomNumber = result.RoomNumber;
+            vm.BuildingType = result.BuildingType;
+            vm.CreatedAt = result.CreatedAt;
+            vm.ModifiedAt = result.ModifiedAt;
+            vm.Images.AddRange(images);
+             
             return View(vm);
         }
 
@@ -207,7 +208,7 @@ namespace ShopTARpe25.Controllers
                     RealEstateId = y.Id,
                     ImageData = y.ImageData,
                     ImageTitle = y.ImageTitle,
-                    //siia info
+                    //string.Format tähendab e see muudab andmed string andmetüübiks
                     Image = string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(y.ImageData))
                 }).ToArrayAsync();
 
