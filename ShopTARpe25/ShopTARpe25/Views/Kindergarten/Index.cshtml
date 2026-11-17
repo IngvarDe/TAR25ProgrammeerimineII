@@ -1,0 +1,109 @@
+﻿@model IEnumerable<ShopTARpe25.Models.Kindergarten.KindergartenIndexViewModel>
+
+@{
+    ViewData["Title"] = "Kindergarten";
+    int rowNumber = 1;
+}
+
+<div class="kindergarten-page">
+
+    <section class="kg-hero">
+        <div class="kg-hero-text">
+            <span class="kg-label">OUR KINDERGARTENS</span>
+            <h1>Kindergarten</h1>
+            <p>Manage kindergarten groups, teachers and children.</p>
+            <a asp-controller="Kindergarten" asp-action="Create" class="kg-create">
+                <span>＋</span> Create kindergarten
+            </a>
+        </div>
+        <div class="kg-hero-image" role="img" aria-label="Kindergarten building and playground"></div>
+    </section>
+
+    <div class="kg-summary">
+        <div class="kg-summary-icon">♧</div>
+        <div>
+            <span>Total kindergartens</span>
+            <strong>@(Model?.Count() ?? 0)</strong>
+        </div>
+    </div>
+
+    @if (Model == null || !Model.Any())
+    {
+        <section class="kg-empty">
+            <div class="kg-empty-picture">🧸</div>
+            <h2>No kindergartens yet</h2>
+            <p>Create your first kindergarten to see it here.</p>
+            <a asp-controller="Kindergarten" asp-action="Create" class="kg-create">
+                ＋ Create kindergarten
+            </a>
+        </section>
+    }
+    else
+    {
+        <section class="kg-grid">
+            @foreach (var kindergarten in Model)
+            {
+                var photoNumber = ((rowNumber - 1) % 3) + 1;
+                var photoUrl = photoNumber == 1
+                    ? "https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=900&q=80"
+                    : photoNumber == 2
+                        ? "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=900&q=80"
+                        : "https://images.unsplash.com/photo-1476231682828-37e571bc172f?auto=format&fit=crop&w=900&q=80";
+
+                <article class="kg-card">
+                    <div class="kg-photo">
+                        <img src="@photoUrl" alt="Kindergarten and outdoor play area" />
+                        <span class="kg-number">#@rowNumber.ToString("00")</span>
+                    </div>
+
+                    <div class="kg-card-content">
+                        <div class="kg-card-heading">
+                            <div class="kg-group-icon">♧</div>
+                            <div>
+                                <h2>@kindergarten.GroupName</h2>
+                                <p>@kindergarten.KindergartenName</p>
+                            </div>
+                        </div>
+
+                        <div class="kg-info">
+                            <div>
+                                <span>Children count</span>
+                                <strong>@kindergarten.ChildrenCount</strong>
+                            </div>
+                            <div>
+                                <span>Teacher name</span>
+                                <strong>@kindergarten.TeacherName</strong>
+                            </div>
+                            <div>
+                                <span>Created at</span>
+                                <strong>@kindergarten.CreatedAt</strong>
+                            </div>
+                            <div>
+                                <span>Updated at</span>
+                                <strong>@kindergarten.UpdatedAt</strong>
+                            </div>
+                        </div>
+
+                        <div class="kg-actions">
+                            <a asp-action="Details" asp-controller="Kindergarten"
+                                   asp-route-id="@kindergarten.Id" class="kg-btn kg-details">
+                                Details
+                            </a>
+                            <a asp-action="Update" asp-controller="Kindergarten"
+                                   asp-route-id="@kindergarten.Id" class="kg-btn kg-update">
+                                Update
+                            </a>
+                            <a asp-action="Delete" asp-controller="Kindergarten"
+                                   asp-route-id="@kindergarten.Id" class="kg-btn kg-delete">
+                                Delete
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                rowNumber++;
+            }
+        </section>
+    }
+
+</div>

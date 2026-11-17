@@ -1,0 +1,112 @@
+﻿@model ShopTARpe25.Models.Kindergarten.KindergartenUpdateViewModel
+
+@{
+    ViewData["Title"] = "Update Kindergarten";
+}
+
+<div class="kg-form-page">
+    <div class="kg-form-heading">
+        <span class="kg-label">OUR KINDERGARTEN</span>
+        <h1>Update kindergarten</h1>
+        <p>Change group information and manage its photos.</p>
+    </div>
+
+    <div class="kg-form-layout">
+        <div class="kg-form-card">
+            <form asp-action="Update" asp-controller="Kindergarten"
+                  method="post" enctype="multipart/form-data">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <input asp-for="Id" type="hidden" />
+                <input asp-for="CreatedAt" type="hidden" />
+                <input asp-for="UpdatedAt" type="hidden" />
+
+                <div class="kg-form-group">
+                    <label asp-for="GroupName">Group name</label>
+                    <input asp-for="GroupName" class="kg-input" />
+                    <span asp-validation-for="GroupName" class="text-danger"></span>
+                </div>
+
+                <div class="kg-form-group">
+                    <label asp-for="ChildrenCount">Children count</label>
+                    <input asp-for="ChildrenCount" class="kg-input" />
+                    <span asp-validation-for="ChildrenCount" class="text-danger"></span>
+                </div>
+
+                <div class="kg-form-group">
+                    <label asp-for="KindergartenName">Kindergarten name</label>
+                    <input asp-for="KindergartenName" class="kg-input" />
+                    <span asp-validation-for="KindergartenName" class="text-danger"></span>
+                </div>
+
+                <div class="kg-form-group">
+                    <label asp-for="TeacherName">Teacher name</label>
+                    <input asp-for="TeacherName" class="kg-input" />
+                    <span asp-validation-for="TeacherName" class="text-danger"></span>
+                </div>
+
+                <div class="kg-form-group">
+                    <label asp-for="Files">Add photos</label>
+                    <input asp-for="Files" type="file" multiple
+                           class="kg-input kg-file-input" accept="image/*" />
+                    <span asp-validation-for="Files" class="text-danger"></span>
+                    <small>Choose new images to add to this group.</small>
+                </div>
+
+                <div class="kg-form-buttons">
+                    <button type="submit" class="kg-create">Save changes</button>
+                    <a asp-action="Index" class="kg-back">Back to list</a>
+                </div>
+            </form>
+        </div>
+
+        <aside class="kg-form-side">
+            <div class="kg-form-side-image"></div>
+            <div class="kg-form-side-text">
+                <span>🌱</span>
+                <h2>Growing together</h2>
+                <p>Keep your group details up to date.</p>
+            </div>
+        </aside>
+    </div>
+
+    <section class="kg-existing-images">
+        <h2>Current photos</h2>
+        <p>Delete an image individually or add more using the form above.</p>
+
+        @if (Model.FileToApiDtos != null && Model.FileToApiDtos.Any())
+        {
+            <div class="kg-image-grid">
+                @foreach (var image in Model.FileToApiDtos)
+                {
+                    <div class="kg-saved-image">
+                        <img src="~/multipleFileUpload/@image.ExistingFilePath"
+                             alt="Kindergarten photo" />
+
+                        <form asp-action="RemoveImage" asp-controller="Kindergarten"
+                              method="post">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="imageId" value="@image.Id" />
+                            <input type="hidden" name="kindergartenId" value="@Model.Id" />
+
+                            <button type="submit" class="kg-confirm-delete">
+                                Delete photo
+                            </button>
+                        </form>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p class="kg-no-images">No photos uploaded yet.</p>
+        }
+    </section>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

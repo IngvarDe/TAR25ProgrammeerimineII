@@ -1,0 +1,90 @@
+﻿@model ShopTARpe25.Models.Kindergarten.KindergartenCreateViewModel
+
+@{
+    ViewData["Title"] = "Create Kindergarten";
+}
+
+<div class="kg-form-page">
+    <div class="kg-form-heading">
+        <span class="kg-label">OUR KINDERGARTEN</span>
+        <h1>Create kindergarten</h1>
+        <p>Add a new group to your kindergarten collection.</p>
+    </div>
+
+    <div class="kg-form-layout">
+        <div class="kg-form-card">
+            <form asp-action="Create"
+                  asp-controller="Kindergarten"
+                  method="post"
+                  enctype="multipart/form-data">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="kg-form-group">
+                    <label asp-for="GroupName">Group name</label>
+                    <input asp-for="GroupName" class="kg-input" placeholder="Enter group name" />
+                    <span asp-validation-for="GroupName" class="text-danger"></span>
+                </div>
+
+                <div class="kg-form-group">
+                    <label asp-for="ChildrenCount">Children count</label>
+                    <input asp-for="ChildrenCount" class="kg-input" placeholder="Enter number of children" />
+                    <span asp-validation-for="ChildrenCount" class="text-danger"></span>
+                </div>
+
+                <div class="kg-form-group">
+                    <label asp-for="KindergartenName">Kindergarten name</label>
+                    <input asp-for="KindergartenName" class="kg-input" placeholder="Enter kindergarten name" />
+                    <span asp-validation-for="KindergartenName" class="text-danger"></span>
+                </div>
+
+                <div class="kg-form-group">
+                    <label asp-for="TeacherName">Teacher name</label>
+                    <input asp-for="TeacherName" class="kg-input" placeholder="Enter teacher name" />
+                    <span asp-validation-for="TeacherName" class="text-danger"></span>
+                </div>
+
+                <div class="kg-form-group">
+                    <label asp-for="Files">Kindergarten photos</label>
+                    <input asp-for="Files"
+                           type="file"
+                           multiple
+                           class="kg-input kg-file-input"
+                           accept="image/*" />
+                    <span asp-validation-for="Files" class="text-danger"></span>
+                    <small>You can select multiple images.</small>
+                </div>
+
+                <div class="kg-form-buttons">
+                    <button type="submit" class="kg-create">
+                        Create kindergarten
+                    </button>
+
+                    <a asp-action="Index"
+                           asp-controller="Kindergarten"
+                           class="kg-back">
+                        Back to list
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        <aside class="kg-form-side">
+            <div class="kg-form-side-image"></div>
+            <div class="kg-form-side-text">
+                <span>🌱</span>
+                <h2>A happy place to grow</h2>
+                <p>
+                    Create a group and keep your kindergarten information
+                    organised in one place.
+                </p>
+            </div>
+        </aside>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

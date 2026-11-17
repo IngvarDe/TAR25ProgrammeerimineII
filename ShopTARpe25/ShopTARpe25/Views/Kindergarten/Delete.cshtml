@@ -1,0 +1,78 @@
+﻿@model ShopTARpe25.Models.Kindergarten.KindergartenDeleteViewModel
+
+@{
+    ViewData["Title"] = "Delete Kindergarten";
+}
+
+<div class="kg-form-page">
+    <div class="kg-form-heading">
+        <span class="kg-label">KINDERGARTEN MANAGEMENT</span>
+        <h1>Delete kindergarten</h1>
+        <p>Review the information before deleting this group.</p>
+    </div>
+
+    <div class="kg-delete-card">
+        <div class="kg-delete-warning">!</div>
+
+        <h2>Are you sure?</h2>
+        <p class="kg-delete-intro">
+            You are about to delete this kindergarten group.
+            This action may not be reversible.
+        </p>
+
+        <div class="kg-detail-info">
+            <div>
+                <span>Group name</span>
+                <strong>@Model.GroupName</strong>
+            </div>
+            <div>
+                <span>Children count</span>
+                <strong>@Model.ChildrenCount</strong>
+            </div>
+            <div>
+                <span>Kindergarten name</span>
+                <strong>@Model.KindergartenName</strong>
+            </div>
+            <div>
+                <span>Teacher name</span>
+                <strong>@Model.TeacherName</strong>
+            </div>
+            <div>
+                <span>Created at</span>
+                <strong>@Model.CreatedAt</strong>
+            </div>
+            <div>
+                <span>Updated at</span>
+                <strong>@Model.UpdatedAt</strong>
+            </div>
+        </div>
+
+        @if (Model.FileToApiDtos != null && Model.FileToApiDtos.Any())
+        {
+            <h3 class="kg-delete-images-title">Saved photos</h3>
+            <div class="kg-image-grid">
+                @foreach (var image in Model.FileToApiDtos)
+                {
+                    <div class="kg-saved-image">
+                        <img src="~/multipleFileUpload/@image.ExistingFilePath"
+                             alt="Kindergarten photo" />
+                    </div>
+                }
+            </div>
+        }
+
+        <form asp-action="DeleteConfirmation" asp-controller="Kindergarten" method="post">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="kg-form-buttons">
+                <button type="submit" class="kg-confirm-delete">
+                    Delete kindergarten
+                </button>
+
+                <a asp-action="Index" asp-controller="Kindergarten" class="kg-back">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
