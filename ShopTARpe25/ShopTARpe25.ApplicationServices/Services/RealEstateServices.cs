@@ -91,7 +91,10 @@ namespace ShopTARpe25.ApplicationServices.Services
                     ImageTitle = y.ImageTitle,
                     RealEstateId = y.RealEstateId,
                 }).ToArrayAsync();
-
+            //nüüd on vaja teada saada, et miks ankeet kustutatakse ära,
+            //aga pilte ei kustutata 
+            //vaadake Spaceship teenusklassi
+            await _fileServices.RemoveImagesFromDatabase(images);
             await _context.Realestates
                 .Where(x => x.Id == id)
                 .ExecuteDeleteAsync();
